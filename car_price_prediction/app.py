@@ -42,7 +42,10 @@ st.write(input_data)
 input_data_encoded = pd.get_dummies(input_data)
 
 try:
-    train_columns = pickle.load(open('train_columns.pkl', 'rb'))
+    # train_columns = pickle.load(open('train_columns.pkl', 'rb'))
+    columns_path = os.path.join(BASE_DIR, 'train_columns.pkl')
+    train_columns = pickle.load(open(columns_path, 'rb'))
+
     input_data_encoded = input_data_encoded.reindex(columns=train_columns, fill_value=0)
 except:
     st.warning("⚠️ Missing 'train_columns.pkl'. Please save your training columns from your notebook.")
@@ -53,5 +56,6 @@ if st.button("Predict Price"):
         st.success(f"💰 Estimated Car Price: £{prediction[0]:,.2f}")
     except Exception as e:
         st.error(f"Error: {e}")
+
 
 
