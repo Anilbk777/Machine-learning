@@ -8,7 +8,8 @@ import os
 # ---------------------------
 # Load saved objects
 # ---------------------------
-BASE_DIR = os.path.dirname(__file__)
+# BASE_DIR = os.path.dirname(__file__)
+BASE_DIR = os.getcwd()
 
 
 # Load saved objects
@@ -72,6 +73,7 @@ if st.button("Predict Churn"):
     pred_label = le_churn.inverse_transform([int(pred_numeric)])[0]  # 'Yes' or 'No'
 
     st.write(f"### Prediction: **{pred_label}**")
+
 
 
 
