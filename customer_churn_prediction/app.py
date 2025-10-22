@@ -6,22 +6,21 @@ import pickle
 import os
 
 # ---------------------------
+# Define base directory
+# ---------------------------
+BASE_DIR = "."
+
+# ---------------------------
 # Load saved objects
 # ---------------------------
-# BASE_DIR = os.path.dirname(__file__)
-BASE_DIR = os.getcwd()
-
-
-# Load saved objects
 model = pickle.load(open(os.path.join(BASE_DIR, 'churn_model.pkl'), 'rb'))
 scaler = pickle.load(open(os.path.join(BASE_DIR, 'scaler.pkl'), 'rb'))
 le_gender = pickle.load(open(os.path.join(BASE_DIR, 'le_gender.pkl'), 'rb'))
 le_churn = pickle.load(open(os.path.join(BASE_DIR, 'le_churn.pkl'), 'rb'))
 ohe = pickle.load(open(os.path.join(BASE_DIR, 'ohe.pkl'), 'rb'))
-
-# Load feature columns order saved during training
-with open(os.path.join(BASE_DIR, "feature_columns.pkl"), "rb") as f:
+with open(os.path.join(BASE_DIR, 'feature_columns.pkl'), 'rb') as f:
     feature_columns = pickle.load(f)
+
 # ---------------------------
 # ---------------------------
 # Streamlit UI
@@ -73,6 +72,7 @@ if st.button("Predict Churn"):
     pred_label = le_churn.inverse_transform([int(pred_numeric)])[0]  # 'Yes' or 'No'
 
     st.write(f"### Prediction: **{pred_label}**")
+
 
 
 
