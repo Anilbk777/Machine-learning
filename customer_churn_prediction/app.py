@@ -3,12 +3,13 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
-
+import os
 
 # ---------------------------
 # Load saved objects
 # ---------------------------
-BASE_DIR = os.getcwd()
+BASE_DIR = os.path.dirname(__file__)
+
 
 # Load saved objects
 model = pickle.load(open(os.path.join(BASE_DIR, 'churn_model.pkl'), 'rb'))
@@ -71,5 +72,6 @@ if st.button("Predict Churn"):
     pred_label = le_churn.inverse_transform([int(pred_numeric)])[0]  # 'Yes' or 'No'
 
     st.write(f"### Prediction: **{pred_label}**")
+
 
 
