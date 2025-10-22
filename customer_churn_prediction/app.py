@@ -6,16 +6,18 @@ import pickle
 import os
 
 
-# Load pickles from the same folder
-model = pickle.load(open('churn_model.pkl', 'rb'))
-scaler = pickle.load(open('scaler.pkl', 'rb'))
-le_gender = pickle.load(open('le_gender.pkl', 'rb'))
-le_churn = pickle.load(open('le_churn.pkl', 'rb'))
-ohe = pickle.load(open('ohe.pkl', 'rb'))
+# Get the absolute path of this script
+script_dir = os.path.dirname(os.path.abspath("app.py"))
 
-with open("feature_columns.pkl", "rb") as f:
+# Load pickle files from the script folder
+model = pickle.load(open(os.path.join(script_dir, 'churn_model.pkl'), 'rb'))
+scaler = pickle.load(open(os.path.join(script_dir, 'scaler.pkl'), 'rb'))
+le_gender = pickle.load(open(os.path.join(script_dir, 'le_gender.pkl'), 'rb'))
+le_churn = pickle.load(open(os.path.join(script_dir, 'le_churn.pkl'), 'rb'))
+ohe = pickle.load(open(os.path.join(script_dir, 'ohe.pkl'), 'rb'))
+
+with open(os.path.join(script_dir, "feature_columns.pkl"), "rb") as f:
     feature_columns = pickle.load(f)
-
 # ---------------------------
 # Streamlit UI
 # ---------------------------
@@ -66,6 +68,7 @@ if st.button("Predict Churn"):
     pred_label = le_churn.inverse_transform([int(pred_numeric)])[0]  # 'Yes' or 'No'
 
     st.write(f"### Prediction: **{pred_label}**")
+
 
 
 
