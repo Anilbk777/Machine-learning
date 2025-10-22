@@ -5,23 +5,17 @@ import numpy as np
 import pickle
 import os
 
-# ---------------------------
-# Define base directory
-# ---------------------------
-BASE_DIR = "."
 
-# ---------------------------
-# Load saved objects
-# ---------------------------
-model = pickle.load(open(os.path.join(BASE_DIR, 'churn_model.pkl'), 'rb'))
-scaler = pickle.load(open(os.path.join(BASE_DIR, 'scaler.pkl'), 'rb'))
-le_gender = pickle.load(open(os.path.join(BASE_DIR, 'le_gender.pkl'), 'rb'))
-le_churn = pickle.load(open(os.path.join(BASE_DIR, 'le_churn.pkl'), 'rb'))
-ohe = pickle.load(open(os.path.join(BASE_DIR, 'ohe.pkl'), 'rb'))
-with open(os.path.join(BASE_DIR, 'feature_columns.pkl'), 'rb') as f:
+# Load pickles from the same folder
+model = pickle.load(open('churn_model.pkl', 'rb'))
+scaler = pickle.load(open('scaler.pkl', 'rb'))
+le_gender = pickle.load(open('le_gender.pkl', 'rb'))
+le_churn = pickle.load(open('le_churn.pkl', 'rb'))
+ohe = pickle.load(open('ohe.pkl', 'rb'))
+
+with open("feature_columns.pkl", "rb") as f:
     feature_columns = pickle.load(f)
 
-# ---------------------------
 # ---------------------------
 # Streamlit UI
 # ---------------------------
@@ -72,6 +66,7 @@ if st.button("Predict Churn"):
     pred_label = le_churn.inverse_transform([int(pred_numeric)])[0]  # 'Yes' or 'No'
 
     st.write(f"### Prediction: **{pred_label}**")
+
 
 
 
